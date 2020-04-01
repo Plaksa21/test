@@ -10,36 +10,57 @@
 // ==/UserScript==
 
 let yandexInput = document.getElementsByName('text')[0];
-let button = document.getElementsByName('button')[1];
-let searchWord = 'Гобой';
-let i = 0;
-let links = document.links;
+let btn=document.getElementsByClassName("button_theme_websearch")[0];//либо кнопка либо undefine
+let searchWords= ['Гобой','Кларнет','Саксофон','Флейта','Валторна','Фагот'];
+let searchWord = 'как устроена скрипка'; //searchWords[getRandom(0,searchWords.length)];
+let i=0;
+let links=document.links;
+//let btnnext = document.querySelector('a [aria-label="Следующая страница"]')[1];
 
-if (button!=undefined){
-    let timerId = setInterval(()=>{
-        yandexInput.value += searchWord[i];
+if (btn!=undefined)
+{
+  let timerId=setInterval(()=>
+      {
+        yandexInput.value+=searchWord[i];
         i++;
-        if (i==searchWord.length) {
-            clearInterval(timerId);
-            button.click();}
-    },500);
-}
-else if (location.hostname == "yandex.ru"){
-    for (let i=0; i<links.length; i++){
-        if (links[i].href.indexOf('xn----7sbab5aqcbiddtdj1e1g.xn--p1ai')!=-1){
-            links[i].click();
-            break;
+        if(i==searchWord.length)
+        {
+          clearInterval(timerId);
+          btn.click();
         }
+      },500);
+}
+else if (location.hostname=="yandex.ru")
+{
+    let FLAG=true;
+for (let i=0;i<links.length; i++)
+  {
+    if (links[i].href.indexOf('https://xn----7sbab5aqcbiddtdj1e1g.xn--p1ai/')!=-1)
+    {
+        FLAG=false;
+        links[i].removeAttribute("target");
+     //   console.log(a);
+        links[i].click();
+        break;
+    }
+   }
+    if (FLAG)
+    {
+        setTimeout(()=>{
+            if (document.querySelector('.pager__item_kind_page').innerText<10) document.querySelector('.pager__item_kind_next').click();//<a class="link link_theme_none link_target_serp pager__item pager__item_kind_next i-bem link_js_inited"
+            else location.href="https://yandex.ru";
+        },3800);
     }
 }
-else {
-    setInterval(()=>{
-        if (getRandom(0,100)<30) location.href = "https://yandex.ru/";
-        let index = getRandom(0, links.length)
-        links[index].click();
-    },5000);
-}
+else
+{
+   setInterval(()=>
+   {
+       if (getRandom(0,100)<30) location.href="https://yandex.ru/";
+       let index=getRandom(0,links.length)
+       links[index].click();},5000);
+   }
 
-function getRandom(min, max){
+function getRandom(min,max){
     return Math.floor(Math.random()*(max-min)+min);
 }
