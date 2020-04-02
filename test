@@ -10,7 +10,7 @@
 // ==/UserScript==
 
 let yandexInput = document.getElementsByName('text')[0];
-let btn=document.getElementsByClassName("button_theme_websearch")[0];//либо кнопка либо undefine
+let btn=document.getElementsByClassName("button_theme_websearch")[0];
 let searchWords= ['Гобой','Кларнет','Саксофон','Флейта','Валторна','Фагот'];
 let searchWord = 'как устроена скрипка'; //searchWords[getRandom(0,searchWords.length)];
 let i=0;
