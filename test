@@ -16,6 +16,7 @@ let searchWord = 'как устроена скрипка'; //searchWords[getRand
 let i=0;
 let links=document.links;
 //let btnnext = document.querySelector('a [aria-label="Следующая страница"]')[1];
+//if(document.querySelector('a[aria-label]').__1585768023692==!"uniq499")
 
 if (btn!=undefined)
 {
